@@ -25,6 +25,17 @@ npm run build    # 타입체크 + 프로덕션 빌드
 npm run lint      # oxlint
 ```
 
+## Android Studio에서 열기
+
+이 저장소는 웹 앱(Vite + React)이라 루트 폴더 자체는 Android Studio가 인식하지 못합니다. 대신 [Capacitor](https://capacitorjs.com/)로 만든 `android/` 폴더(네이티브 Gradle 프로젝트)를 열어야 합니다.
+
+```bash
+npm run android:sync   # 웹 빌드 후 android/ 프로젝트에 반영
+npm run android:open   # Android Studio로 android/ 폴더 열기 (Studio 설치 필요)
+```
+
+또는 Android Studio에서 `Open` → 이 저장소의 `android` 폴더를 직접 선택해도 됩니다. 웹 코드(`src/`)를 수정한 뒤에는 반드시 `npm run android:sync`를 다시 실행해 변경사항을 네이티브 프로젝트에 반영해야 합니다.
+
 ## 참고
 
 - 현재는 로그인/회원가입 없이 닉네임과 키보드 앱 이름만 입력하면 바로 플레이할 수 있는 데모 버전입니다.

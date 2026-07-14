@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">HanTa</string>
+    <string name="title_activity_main">HanTa</string>
+    <string name="package_name">com.hanta.app</string>
+    <string name="custom_url_scheme">com.hanta.app</string>
+</resources>

@@ -1,0 +1,34 @@
+.top-hud {
+  height: 5%;
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  box-sizing: border-box;
+  background: #171a23;
+  border-bottom: 1px solid #2a2f3d;
+  color: #f4f4f8;
+  font-size: 11px;
+  gap: 8px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.hud-scores {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hud-sep {
+  color: #5a5f70;
+}
+
+.hud-nickname {
+  font-weight: 600;
+  color: #66d9e8;
+  flex-shrink: 0;
+}

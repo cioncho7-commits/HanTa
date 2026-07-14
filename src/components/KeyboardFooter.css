@@ -1,0 +1,12 @@
+.keyboard-footer {
+  padding: 6px 10px calc(6px + env(safe-area-inset-bottom));
+  background: #12141c;
+  color: #8a8fa3;
+  font-size: 11px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.keyboard-footer strong {
+  color: #ffd43b;
+}

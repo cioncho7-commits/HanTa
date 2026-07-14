@@ -1,0 +1,63 @@
+.play-page {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: #12141c;
+  overflow: hidden;
+}
+
+.play-body {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  min-height: 0;
+  padding-top: 8px;
+}
+
+.game-over-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(12, 14, 20, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 6;
+}
+
+.game-over-card {
+  background: #20242f;
+  border-radius: 16px;
+  padding: 24px;
+  width: 80%;
+  max-width: 300px;
+  text-align: center;
+  color: #f4f4f8;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.game-over-card h2 {
+  margin: 0;
+  color: #ff8787;
+}
+
+.game-over-card button {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  background: #66d9e8;
+  color: #12141c;
+}
+
+.game-over-card .logout-link {
+  background: transparent;
+  color: #9a9fb0;
+  font-weight: 400;
+  font-size: 12px;
+}

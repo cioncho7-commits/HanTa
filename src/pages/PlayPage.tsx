@@ -1,63 +1,47 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../auth/AuthContext';
+import { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useGameEngine } from '../game/engine';
 import Board from '../game/Board';
 import TopHUD from '../components/TopHUD';
 import InputBar from '../components/InputBar';
 import KeyboardFooter from '../components/KeyboardFooter';
-import DifficultySelect from '../components/DifficultySelect';
 import type { Difficulty } from '../game/types';
 import './PlayPage.css';
 
+interface PlayLocationState {
+  nickname: string;
+  keyboardName: string;
+  difficulty: Difficulty;
+}
+
 export default function PlayPage() {
-  const { user, logout } = useAuth();
   const navigate = useNavigate();
-  const [difficulty, setDifficulty] = useState<Difficulty | null>(null);
+  const location = useLocation();
+  const state = location.state as PlayLocationState | null;
 
   useEffect(() => {
-    if (!user) navigate('/');
-  }, [user, navigate]);
+    if (!state) navigate('/');
+  }, [state, navigate]);
 
-  if (!user) return null;
+  if (!state) return null;
 
-  return (
-    <PlayInner
-      nickname={user.nickname}
-      keyboardName={user.keyboardName}
-      difficulty={difficulty}
-      onSelectDifficulty={setDifficulty}
-      onLogout={() => {
-        logout();
-        navigate('/');
-      }}
-    />
-  );
+  return <PlayInner nickname={state.nickname} keyboardName={state.keyboardName} difficulty={state.difficulty} />;
 }
 
 interface PlayInnerProps {
   nickname: string;
   keyboardName: string;
-  difficulty: Difficulty | null;
-  onSelectDifficulty: (d: Difficulty) => void;
-  onLogout: () => void;
+  difficulty: Difficulty;
 }
 
-function PlayInner({ nickname, keyboardName, difficulty, onSelectDifficulty, onLogout }: PlayInnerProps) {
-  const engine = useGameEngine({
-    difficulty: difficulty ?? 'beginner',
-    nickname,
-    keyboardName,
-  });
+function PlayInner({ nickname, keyboardName, difficulty }: PlayInnerProps) {
+  const navigate = useNavigate();
+  const engine = useGameEngine({ difficulty, nickname, keyboardName });
 
-  function handleChooseDifficulty(d: Difficulty) {
-    onSelectDifficulty(d);
-  }
-
-  function startWithDifficulty(d: Difficulty) {
-    handleChooseDifficulty(d);
-    setTimeout(() => engine.start(), 0);
-  }
+  useEffect(() => {
+    engine.start();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="play-page">
@@ -72,8 +56,6 @@ function PlayInner({ nickname, keyboardName, difficulty, onSelectDifficulty, onL
           onDragEnd={engine.endDrag}
         />
 
-        {difficulty === null && <DifficultySelect onSelect={startWithDifficulty} />}
-
         {engine.gameOver && (
           <div className="game-over-overlay">
             <div className="game-over-card">
@@ -82,8 +64,8 @@ function PlayInner({ nickname, keyboardName, difficulty, onSelectDifficulty, onL
               <button type="button" onClick={() => engine.start()}>
                 다시 시작
               </button>
-              <button type="button" onClick={onLogout} className="logout-link">
-                로그아웃
+              <button type="button" onClick={() => navigate('/')} className="logout-link">
+                처음으로
               </button>
             </div>
           </div>
